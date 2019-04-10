@@ -1,0 +1,51 @@
+2019.04.09
+老师讲解:
+
+
+自学文件:
+nodeJS之fs文件系统
+1.  fs文件系统用于对系统文件及目录进行读写操作
+2.  文件i/o是由简单封装的标准POSIX函数提供的,通过require("fs")使用该模块
+3.  所有的方法都有  异步和同步  的形式
+4.  异步---始终以完成回调函数作为最后一个参数
+	第一个参数总会留给异常
+	如果成功第一个参数会是null或undefined
+	异步方式不保证错误,容易出错
+5.  同步---任何异常都会被立即抛出
+	可以使用try/catch来异常或者让他们往上冒泡
+6.  异步方法
+	fs.stat( path , callback );
+	path : 用于指定需要被查看的文件或目录的完整路径及文件名或目录名
+	fs.stat( path , callback );
+	callback : 用于指定查看文件或目录信息操作完毕时执行的回调函数
+	例如:
+	fs.stat(path , function( err ,stats ){  }
+	err : 查看文件或目录信息操作失败时触发的错误对象
+	stats：一个fs.Stats对象
+7.同步方法
+	在使用同步方式查看文件信息时，可以使用fs模块中的  statSync  方法或  lstatSync  方法。
+	var mystat = fs.statSync(path);
+	var mystat = fs.lstatSync(path);
+	path：用于指定需要被查看的文件或者目录的完整路径及文件名或目录名。
+	该方法返回存放了文件信息的fs.Stats对象。
+	
+	fstat/fstatSync
+	在使用open或者openSync方法打开文件并返回文件描述符后，可以使用可以使用fs模块中的fstat或者	fstatSync方法查询被打开的文件信息。
+
+ 	fs.fstat( fd, callback );
+	var mystat = fs.fstatSync( fd );   //该方法返回存放了文件信息的fs.Stats对象
+	fd：参数值必须为打开文件时返回的文件描述符；
+
+	callback：用于指定查看文件或目录信息操作完毕时执行的回调函数，该回调函数的指定方法与stat方法的第二	个参数值回调函数完全相同；
+
+moudule.exports
+1.  其实module.exports就是{}，而exports是指向module.exports的引用。
+	 exports和module.exports;提供了外部访问的接口
+2.  文件模块访问方式通过require('/文件名.后缀') require('./文件名.后缀') requrie('../文件名.后缀') 去访问，文件后缀可以省略；以"/"开头是以绝对路径去加载，以"./"开头和以"../"开头表示以相对路径加载，而以"./"开头表示同级目录下文件，
+var myadd=require('./add'); 
+3.  通过exports和module.exports对外公开的方法都可以访问
+区别:
+	1.module.exports才是真正的接口，exports只不过是它的一个辅助工具。　最终返回给调用的是module.exports而不是exports。
+	2.所有的exports收集到的属性和方法，都赋值给了Module.exports。当然，这有个前提，就是module.exports本身不具备任何属性和方法。如果，module.exports已经具备一些属性和方法，那么exports收集来的信息将被忽略。
+	3.exports仅仅是module.exports的一个地址引用。nodejs只会导出module.exports的指向，如果exports指向变了，那就仅仅是exports不在指向module.exports，于是不会再被导出
+

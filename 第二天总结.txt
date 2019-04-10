@@ -1,0 +1,52 @@
+1.  http://127.0.0.1:3000  和 http://localhost:3000 是一样的。
+2.  resolve   即可以地址解析，也可以解析目录解析。
+3.  fs 文件系统
+	fs.readFile :  读文件 
+		参数 ： 路径，编码格式，回调函数  （异步执行）
+	writeFile   ：   写入
+		参数：文件路径，写入内容，flag/编码格式，回调函数 。
+		flag ：      w  默认值 会被覆盖掉 
+        			r：读 
+        			a：append 追加
+4.  ./同级目录      ../上级目录
+目录的操作 :
+	创建目录 
+		mkdir("./CSS",(err)=>{ })
+	删除目录
+		rmdir("./CSS",(err)=>{ })
+	改文件名称
+		rename("./text/1.txt","./text/2.txt",(err)=>{ }) 
+	删除文件
+		unlink("./text/1.txt",(err)=>{ }) 
+	查看文件是否存在
+		exists("./CSS2",(exists)=>{})
+	读取文件夹信息       
+		readdir("./text",(err,data)=>{})  //文件夹和文件都会出来
+	判断是文件夹还是文件：
+	fs.stat("./text",(err,stats)=>{
+		判断是否是文件夹 
+			isDirectory()
+		判断是否是文件
+			isFile()
+	}）
+5.  module.exports     exports  ：暴露  抛出
+    module.exports 和 exports暴 的区别:
+		默认都指向空对象。
+       		module.exports  是 exports的引用
+
+练习 ：
+	判断当前文件夹里是否包含文件夹？如果是文件把所有的文件夹输出
+	方法1：
+		1.读取文件夹信息
+		2.遍历文件夹里的内容，注意要用let
+		3.判断是文件夹还是文件。
+	方法2：
+		用迭代处理（递归）。
+		（function item（i）{
+			1.什么时候结束
+			2.自己调用自己
+			3.不用i++
+			res.end(item(i+1))  
+
+		}）（）
+
